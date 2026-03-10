@@ -188,6 +188,60 @@ Transcription   — raw Deepgram JSON + SRT file path
 
 ---
 
+## 🔭 Future Scope
+
+The roadmap below outlines high-impact features planned for upcoming versions of Scriptly.
+
+### 🎥 AI Video Generation
+
+- Automatically assemble B-roll clips, captions, and voice-over into a **finished MP4** using FFmpeg or a cloud render pipeline (e.g. Remotion, RunwayML).
+- Support multiple aspect ratios out of the box — vertical (9:16 Reels/Shorts), square (1:1), and landscape (16:9 YouTube).
+- Per-section scene transitions, animated lower thirds, and branded outro cards.
+
+### 🧑‍💻 AI Avatar Presenter
+
+- Integrate **talking-head avatar** APIs (e.g. HeyGen, D-ID, Synthesia) so a virtual on-screen host lip-syncs to the generated voice-over — no camera required.
+- Let users pick from a library of stock avatars or upload their own likeness.
+- Avatar video is composited over B-roll background automatically.
+
+### ✂️ In-App Video / Timeline Editor
+
+- A **browser-based editor** (think CapCut-lite) where every element — script segments, B-roll clips, avatar track, subtitle timing, background music — lives on a single drag-and-drop timeline.
+- Inline text editor lets you tweak captions frame-by-frame without re-rendering the whole video.
+- One-click re-generate for individual sections; swap a B-roll clip or voice line without touching the rest.
+
+### 🌐 Direct Platform Publishing
+
+- OAuth connections to **YouTube, Instagram, TikTok, and LinkedIn** so you can schedule or publish finished videos directly from Scriptly.
+- Auto-fill title, description, hashtags, and thumbnail from the already-generated YouTube metadata.
+
+### 🖼 AI Thumbnail Generator
+
+- Generate click-worthy thumbnails using DALL·E / Stable Diffusion with the video title and hook text baked in.
+- A/B thumbnail variants let you pick the best performer before publishing.
+
+### 🎵 Background Music & Sound Effects
+
+- AI-curated royalty-free background tracks matched to the script's emotional tone (energetic, calm, dramatic).
+- Auto-ducking so music fades under the voice-over and swells at B-roll moments.
+
+### 🌍 Multi-Language Support
+
+- Translate the script and regenerate voice-over in a target language with a single click.
+- Subtitle files exported in the correct language for each platform.
+
+### 📊 Analytics Dashboard
+
+- Track views, watch-time, and engagement per published video across platforms in one unified dashboard.
+- Surface AI insights — e.g. "Hooks under 5 seconds get 30 % higher retention on this channel".
+
+### 🤝 Team Collaboration
+
+- Role-based workspace (Creator, Editor, Reviewer) with real-time co-editing and approval workflows.
+- Comment threads pinned to specific script sections or timeline timestamps.
+
+---
+
 ## 📜 License
 
 MIT
