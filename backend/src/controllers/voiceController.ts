@@ -1,5 +1,10 @@
 import { Request, Response, NextFunction } from 'express';
-import { generateVoice, DEEPGRAM_VOICES, ELEVENLABS_VOICES, VoiceProvider } from '../services/voiceService';
+import {
+  generateVoice,
+  DEEPGRAM_VOICES,
+  ELEVENLABS_VOICES,
+  VoiceProvider,
+} from '../services/voiceService';
 import { createError } from '../middleware/errorHandler';
 
 const VALID_PROVIDERS: VoiceProvider[] = ['elevenlabs', 'deepgram'];

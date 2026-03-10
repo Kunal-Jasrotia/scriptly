@@ -33,13 +33,11 @@ const ScriptOutputSchema = z.object({
       .string()
       .describe(
         'Full SSML markup for the ENTIRE script. Must start with <speak> and end with </speak>. ' +
-        'ElevenLabs-compatible tags ONLY: <break time="Xms"/>, ' +
-        '<prosody rate="slow|fast|x-slow|x-fast">, <prosody volume="loud|soft">. ' +
-        'Do NOT use <emphasis>, <prosody pitch>, <say-as>, or <phoneme>.'
+          'ElevenLabs-compatible tags ONLY: <break time="Xms"/>, ' +
+          '<prosody rate="slow|fast|x-slow|x-fast">, <prosody volume="loud|soft">. ' +
+          'Do NOT use <emphasis>, <prosody pitch>, <say-as>, or <phoneme>.'
       ),
-    caption: z
-      .string()
-      .describe('Social media caption for the video, under 150 characters'),
+    caption: z.string().describe('Social media caption for the video, under 150 characters'),
     hashtags: z
       .array(z.string())
       .min(3)
@@ -49,22 +47,22 @@ const ScriptOutputSchema = z.object({
       .string()
       .describe(
         'Catchy YouTube video title. Must be under 70 characters. ' +
-        'Use proven title formulas: curiosity gaps ("The REAL Reason..."), ' +
-        'numbers ("5 Things Nobody Tells You About..."), power words (SHOCKING, SECRET, WARNING), ' +
-        'brackets for context ("[Must Watch]", "(Honest Review)"), ' +
-        'or challenge/result framing ("I Did X for 30 Days — Here\'s What Happened"). ' +
-        'NEVER use a plain, generic title. Make it irresistible to click.'
+          'Use proven title formulas: curiosity gaps ("The REAL Reason..."), ' +
+          'numbers ("5 Things Nobody Tells You About..."), power words (SHOCKING, SECRET, WARNING), ' +
+          'brackets for context ("[Must Watch]", "(Honest Review)"), ' +
+          'or challenge/result framing ("I Did X for 30 Days — Here\'s What Happened"). ' +
+          'NEVER use a plain, generic title. Make it irresistible to click.'
       ),
     yt_description: z
       .string()
       .describe(
         'Full YouTube video description. Structure: ' +
-        '1) Hook sentence (first 2 lines visible before "Show more" — make them compelling), ' +
-        '2) 2-3 sentence video overview, ' +
-        '3) Timestamps section placeholder (e.g. 00:00 Intro\\n00:15 [topic]...), ' +
-        '4) Subscribe + like CTA line, ' +
-        '5) Relevant hashtags (3-5). ' +
-        'Total length: 150-300 words. Write for the target audience.'
+          '1) Hook sentence (first 2 lines visible before "Show more" — make them compelling), ' +
+          '2) 2-3 sentence video overview, ' +
+          '3) Timestamps section placeholder (e.g. 00:00 Intro\\n00:15 [topic]...), ' +
+          '4) Subscribe + like CTA line, ' +
+          '5) Relevant hashtags (3-5). ' +
+          'Total length: 150-300 words. Write for the target audience.'
       ),
   }),
 });
@@ -166,8 +164,7 @@ export async function generateScript(params: {
       duration: params.duration.toString(),
       tone: params.tone,
       research_summary:
-        params.research_summary ||
-        'No external research provided. Use reliable general knowledge.',
+        params.research_summary || 'No external research provided. Use reliable general knowledge.',
       wordCount: wordCount.toString(),
     });
 

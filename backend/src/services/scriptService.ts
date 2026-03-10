@@ -38,10 +38,7 @@ export async function createScript(input: CreateScriptInput) {
 
   // Step 3: Enhance SSML with emotional pacing
   // ssml_voice_script now lives inside script_clean (matches LLM's natural output)
-  const enhanced_ssml = await enhanceWithEmotion(
-    generated.script_clean.ssml_voice_script,
-    tone
-  );
+  const enhanced_ssml = await enhanceWithEmotion(generated.script_clean.ssml_voice_script, tone);
 
   // Step 4: Persist to database
   // Store only hook/body/cta in script_clean — all other generated fields go to top-level columns
@@ -167,9 +164,9 @@ export async function refineScript(id: string, feedback: string) {
   const response = await model.invoke([
     new SystemMessage(
       'You are an expert script editor. The user wants to refine their short-form video script. ' +
-      'Apply the feedback to improve the script. Keep the same structure (hook, body sections, cta). ' +
-      'Maintain the tone and target audience. Return ONLY a JSON object with keys: ' +
-      '"hook" (string), "body" (array of {section, text}), "cta" (string). No markdown, no explanation.'
+        'Apply the feedback to improve the script. Keep the same structure (hook, body sections, cta). ' +
+        'Maintain the tone and target audience. Return ONLY a JSON object with keys: ' +
+        '"hook" (string), "body" (array of {section, text}), "cta" (string). No markdown, no explanation.'
     ),
     new HumanMessage(
       `Current script:\n${currentScriptText}\n\nFeedback to apply:\n${feedback}\n\nTone: ${script.tone}\nAudience: ${script.audience}`

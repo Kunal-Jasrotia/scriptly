@@ -1,3 +1,4 @@
+/* eslint-disable @typescript-eslint/no-explicit-any */
 import { PrismaClient } from '@prisma/client';
 import { ChatOpenAI } from '@langchain/openai';
 import { HumanMessage, SystemMessage } from '@langchain/core/messages';
@@ -10,11 +11,11 @@ const prisma = new PrismaClient();
 
 export interface PexelsClip {
   id: number;
-  thumbnail: string;   // preview image URL
-  duration: number;    // seconds
-  hdUrl: string;       // HD MP4 download link
-  sdUrl: string;       // SD MP4 download link (smaller, faster)
-  pexelsUrl: string;   // attribution link (required by Pexels license)
+  thumbnail: string; // preview image URL
+  duration: number; // seconds
+  hdUrl: string; // HD MP4 download link
+  sdUrl: string; // SD MP4 download link (smaller, faster)
+  pexelsUrl: string; // attribution link (required by Pexels license)
   photographer: string;
   width: number;
   height: number;
@@ -47,13 +48,13 @@ async function extractKeywords(
   const response = await model.invoke([
     new SystemMessage(
       'You extract Pexels stock video search keywords. ' +
-      'For each script section, return a 2-3 word visual search query that would find relevant B-roll footage. ' +
-      'Rules: use concrete visual nouns, avoid brand names, prefer action-oriented terms. ' +
-      'Return ONLY a JSON array of strings, exactly one per section, no explanation.'
+        'For each script section, return a 2-3 word visual search query that would find relevant B-roll footage. ' +
+        'Rules: use concrete visual nouns, avoid brand names, prefer action-oriented terms. ' +
+        'Return ONLY a JSON array of strings, exactly one per section, no explanation.'
     ),
     new HumanMessage(
       `Video topic: "${topic}"\n\nScript sections:\n${sectionList}\n\n` +
-      'Return a JSON array with one search keyword string per section.'
+        'Return a JSON array with one search keyword string per section.'
     ),
   ]);
 
@@ -72,9 +73,7 @@ async function extractKeywords(
 
   // Fallback: derive keywords from section labels + topic
   return sections.map((s) =>
-    s.label === 'Hook' || s.label === 'Call to Action'
-      ? topic
-      : `${s.label.toLowerCase()} concept`
+    s.label === 'Hook' || s.label === 'Call to Action' ? topic : `${s.label.toLowerCase()} concept`
   );
 }
 
@@ -82,15 +81,16 @@ async function extractKeywords(
 
 async function searchPexels(query: string, count = 3): Promise<PexelsClip[]> {
   const apiKey = process.env.PEXELS_API_KEY;
-  if (!apiKey) throw createError('PEXELS_API_KEY not configured. Get a free key at pexels.com/api', 500);
+  if (!apiKey)
+    throw createError('PEXELS_API_KEY not configured. Get a free key at pexels.com/api', 500);
 
   const response = await axios.get('https://api.pexels.com/videos/search', {
     headers: { Authorization: apiKey },
     params: {
       query,
       per_page: count,
-      orientation: 'portrait',   // vertical — ideal for short-form video
-      size: 'small',             // max duration ~30s per clip
+      orientation: 'portrait', // vertical — ideal for short-form video
+      size: 'small', // max duration ~30s per clip
     },
     timeout: 10_000,
   });

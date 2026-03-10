@@ -51,9 +51,7 @@ export async function enhanceWithEmotion(ssml: string, tone: string): Promise<st
     openAIApiKey: process.env.OPENAI_API_KEY,
   });
 
-  const chain = emotionPromptTemplate
-    .pipe(model)
-    .pipe(new StringOutputParser());
+  const chain = emotionPromptTemplate.pipe(model).pipe(new StringOutputParser());
 
   try {
     const enhanced = await chain.invoke({
@@ -71,7 +69,10 @@ export async function enhanceWithEmotion(ssml: string, tone: string): Promise<st
 
     return trimmed;
   } catch (err) {
-    console.warn('[EmotionChain] Enhancement failed — using original SSML:', (err as Error).message);
+    console.warn(
+      '[EmotionChain] Enhancement failed — using original SSML:',
+      (err as Error).message
+    );
     return ssml;
   }
 }

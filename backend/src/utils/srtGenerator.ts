@@ -38,15 +38,17 @@ export function generateSRT(utterances: DeepgramUtterance[]): string {
     return '1\n00:00:00,000 --> 00:00:01,000\n[No transcription available]\n';
   }
 
-  return utterances
-    .map((utt, index) => {
-      const startCode = formatTimecode(utt.start);
-      const endCode = formatTimecode(utt.end);
-      const text = utt.transcript.trim();
+  return (
+    utterances
+      .map((utt, index) => {
+        const startCode = formatTimecode(utt.start);
+        const endCode = formatTimecode(utt.end);
+        const text = utt.transcript.trim();
 
-      return `${index + 1}\n${startCode} --> ${endCode}\n${text}`;
-    })
-    .join('\n\n') + '\n';
+        return `${index + 1}\n${startCode} --> ${endCode}\n${text}`;
+      })
+      .join('\n\n') + '\n'
+  );
 }
 
 /**
@@ -58,13 +60,15 @@ export function generateWordLevelSRT(words: DeepgramWord[]): string {
     return '1\n00:00:00,000 --> 00:00:01,000\n[No words available]\n';
   }
 
-  return words
-    .map((word, index) => {
-      const startCode = formatTimecode(word.start);
-      const endCode = formatTimecode(word.end);
-      const text = (word.punctuated_word || word.word).trim();
+  return (
+    words
+      .map((word, index) => {
+        const startCode = formatTimecode(word.start);
+        const endCode = formatTimecode(word.end);
+        const text = (word.punctuated_word || word.word).trim();
 
-      return `${index + 1}\n${startCode} --> ${endCode}\n${text}`;
-    })
-    .join('\n\n') + '\n';
+        return `${index + 1}\n${startCode} --> ${endCode}\n${text}`;
+      })
+      .join('\n\n') + '\n'
+  );
 }
