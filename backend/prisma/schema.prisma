@@ -1,0 +1,59 @@
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "postgresql"
+  url      = env("DATABASE_URL")
+}
+
+model Script {
+  id                String          @id @default(cuid())
+  topic             String
+  audience          String
+  duration          Int
+  tone              String
+  researchUrls      String[]
+  research_summary  String?
+  script_clean      Json
+  ssml_voice_script String
+  caption           String?
+  hashtags          String[]
+  yt_title          String?
+  yt_description    String?
+  video_clips       Json?
+  approved          Boolean         @default(false)
+  createdAt         DateTime        @default(now())
+  updatedAt         DateTime        @updatedAt
+  versions          ScriptVersion[]
+  audio             Audio?
+  transcription     Transcription?
+}
+
+model ScriptVersion {
+  id                String   @id @default(cuid())
+  scriptId          String
+  script            Script   @relation(fields: [scriptId], references: [id], onDelete: Cascade)
+  versionNumber     Int
+  script_clean      Json
+  ssml_voice_script String
+  createdAt         DateTime @default(now())
+}
+
+model Audio {
+  id        String   @id @default(cuid())
+  scriptId  String   @unique
+  script    Script   @relation(fields: [scriptId], references: [id], onDelete: Cascade)
+  filePath  String
+  duration  Float?
+  createdAt DateTime @default(now())
+}
+
+model Transcription {
+  id        String   @id @default(cuid())
+  scriptId  String   @unique
+  script    Script   @relation(fields: [scriptId], references: [id], onDelete: Cascade)
+  raw_json  Json
+  srt_path  String
+  createdAt DateTime @default(now())
+}

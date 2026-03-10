@@ -1,0 +1,8 @@
+node_modules/
+dist/
+.env
+storage/audio/*
+storage/subtitles/*
+!storage/audio/.gitkeep
+!storage/subtitles/.gitkeep
+*.js.map
